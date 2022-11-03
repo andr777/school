@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
@@ -20,8 +21,8 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Faculty> getFacultyInfo(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Faculty> getFacultyInfo(@PathVariable long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
             return ResponseEntity.notFound().build();
@@ -35,7 +36,7 @@ public class FacultyController {
     }
 
     @PutMapping
-    public ResponseEntity<Faculty> editFaculty(@RequestBody Long id, Faculty faculty) {
+    public ResponseEntity<Faculty> editFaculty(@RequestBody long id, Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
         if (foundFaculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -43,19 +44,16 @@ public class FacultyController {
         return ResponseEntity.ok(foundFaculty);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteFaculty(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFaculty(@PathVariable long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
 
     // Controller
-    @GetMapping
-    public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
-        if (color != null && !color.isBlank()) {
-            return ResponseEntity.ok(facultyService.findByColor(color));
-        }
-        return ResponseEntity.ok(Collections.emptyList());
+    @GetMapping("/{color}")
+    public Collection<Faculty> findByColor(@RequestParam(required = false) String color) {
+              return facultyService.findByColor(color);
     }
 
 
