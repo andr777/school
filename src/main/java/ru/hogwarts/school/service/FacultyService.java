@@ -25,7 +25,7 @@ private final FacultyRepository facultyRepository;
     }
 
     public Faculty findFaculty(long id) {
-        return facultyRepository.findById(id).get();
+        return facultyRepository.findById(id).orElse(null);
     }
 
     public Faculty editFaculty(long id, Faculty faculty) {

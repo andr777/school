@@ -11,7 +11,9 @@ import java.util.Collection;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    Collection<Student> findByAge(long age);
+    //default Collection<Student> findByAge(long age) {
+   ///     return null;
+   // }
 
 
 }

@@ -26,11 +26,15 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Student getStudentInfo(@PathVariable long id) {
-        return studentService.findStudent(id);
+    public ResponseEntity<Student> getStudentInfo(@PathVariable long id) {
+        Student foundStudent = studentService.findStudent(id);
+        if (foundStudent == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(foundStudent);
     }
     @PutMapping
-    public ResponseEntity<Student> editStudent(@RequestBody  long id, Student student) {
+    public ResponseEntity<Student> editStudent(@PathVariable long id, @RequestBody Student student) {
         Student foundStudent = studentService.editStudent(id, student);
         if (foundStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -46,11 +50,14 @@ public class StudentController {
 
     // Controller
     @GetMapping("/{age}")
-    public Collection<Student> findStudents(@RequestParam(required = false) int age) {
-        if (age > 0) {
+    public Collection<Student> findStudents(@PathVariable int age) {
+     /*   if (age > 0) {
             return  studentService.findByAge(age);
         }
-        return  Collections.emptyList();
+        return Collections.emptyList();
+
+      */
+        return studentService.findByAge(age);
     }
 
 
