@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class StudentService {
 
-  //  private final HashMap<Long, Student> students = new HashMap<>();
-  //  private long count = 0;
+    //  private final HashMap<Long, Student> students = new HashMap<>();
+    //  private long count = 0;
 
     private final StudentRepository studentRepository;
 
@@ -38,19 +38,17 @@ public class StudentService {
     }
 
 
-
-// Service
+    // Service
     public Collection<Student> findByAge(int age) {
-    /*   List<Student> sortedStudents = getAll().stream()
-              .filter(student -> (age == student.getAge()))
+        List<Student> sortedStudents = getAll().stream()
+                .filter(student -> (age == student.getAge()))
                 .collect(Collectors.toList());
         if (sortedStudents.isEmpty()) {
             return null;
         }
         return sortedStudents;
 
-     */
-        return studentRepository.findAll();
+
     }
 
     private Collection<Student> getAll() {
