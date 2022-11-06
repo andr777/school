@@ -40,7 +40,9 @@ public class StudentService {
 
     // Service
     public Collection<Student> findByAge(int age) {
-        List<Student> sortedStudents = getAll().stream()
+        return studentRepository.findAllByAge(age);
+
+    /*    List<Student> sortedStudents = getAll().stream()
                 .filter(student -> (age == student.getAge()))
                 .collect(Collectors.toList());
         if (sortedStudents.isEmpty()) {
@@ -48,7 +50,7 @@ public class StudentService {
         }
         return sortedStudents;
 
-
+*/
     }
 
     private Collection<Student> getAll() {
