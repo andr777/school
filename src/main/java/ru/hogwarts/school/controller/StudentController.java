@@ -4,11 +4,13 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -53,5 +55,19 @@ public class StudentController {
         studentService.deleteStudent(delid);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/ageminmax")
+    public Collection<Student> findByAgeBetween(@RequestParam("min") int min, @RequestParam("max") int max) {
+        return studentService.findByAgeBetween(min, max);
+    }
+
+    @GetMapping("/faculty")
+    public Collection<Object> findByNameFaculty(@RequestParam("namestudent") String namestudent) {
+        return studentService.findMyFacultyNameStudent(namestudent);
+
+    }
+
+
+
 
 }

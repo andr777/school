@@ -51,6 +51,10 @@ public class FacultyController {
               return facultyService.findByColor(color);
     }
 
+    @GetMapping("/nameorcolor")
+    public Collection<Faculty> findAllByColorIgnoreCaseOrNameIgnoreCase(@RequestParam("nameorcolor") String nameorcolor) {
+        return facultyService.findAllByColorIgnoreCaseOrNameIgnoreCase(nameorcolor);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFaculty(@PathVariable long id) {
@@ -58,4 +62,9 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/student")
+    public Collection<Object> findFacultyNameStudent(@RequestParam("namefacylty") String namefacylty) {
+        return facultyService.findMyFacultyName(namefacylty);
+
+    }
 }

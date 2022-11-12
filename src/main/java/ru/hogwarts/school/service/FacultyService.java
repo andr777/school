@@ -41,5 +41,11 @@ private final FacultyRepository facultyRepository;
     }
 
 
+    public Collection<Faculty> findAllByColorIgnoreCaseOrNameIgnoreCase(String nameorcolor){
+        return facultyRepository.findAllByColorIgnoreCaseOrNameIgnoreCase(nameorcolor,  nameorcolor);
+    }
 
+    public Collection<Object> findMyFacultyName(String namefacylty) {
+        return facultyRepository.findMyFacultyName(namefacylty);
+    }
 }
