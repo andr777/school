@@ -26,17 +26,24 @@ public class Student {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Student student = (Student) o;
-        return id == student.id && age == student.age && Objects.equals(name, student.name);
+
+        if (age != student.age) return false;
+        if (!Objects.equals(id, student.id)) return false;
+        if (!Objects.equals(name, student.name)) return false;
+        return Objects.equals(faculty, student.faculty);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (faculty != null ? faculty.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -45,7 +52,20 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", faculty=" + faculty +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public long getId() {

@@ -15,6 +15,14 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty")
     private Collection<Student> students;
 
+    public Collection<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
     public Faculty() {
     }
 
@@ -24,19 +32,27 @@ public class Faculty {
         this.color = color;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Faculty faculty = (Faculty) o;
-        return id == faculty.id && Objects.equals(name, faculty.name) && Objects.equals(color, faculty.color);
+
+        if (!Objects.equals(id, faculty.id)) return false;
+        if (!Objects.equals(name, faculty.name)) return false;
+        if (!Objects.equals(color, faculty.color)) return false;
+        return Objects.equals(students, faculty.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, color);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (students != null ? students.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -45,6 +61,7 @@ public class Faculty {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", color='" + color + '\'' +
+                ", students=" + students +
                 '}';
     }
 
