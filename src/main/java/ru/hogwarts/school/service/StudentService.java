@@ -67,4 +67,13 @@ public class StudentService {
     public Collection<Object> findMyFacultyNameStudent(String namestudent) {
         return studentRepository.findMyFacultyNameStudent(namestudent);
     }
+
+    public StudentRepository getStudentRepository() {
+        return studentRepository;
+    }
+
+
+    public Student getStudent(Long id) {
+        return studentRepository.findById(id).orElse(null);
+    }
 }
